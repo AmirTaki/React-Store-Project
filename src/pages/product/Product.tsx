@@ -1,6 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import Container from "../../components/container/Container";
+import Button from "../../components/button/button";
 
 function Product () {
     
@@ -23,9 +24,11 @@ function Product () {
                     <div className=" p-4 col-span-2 bg-sky-200">
                         <img src="https://www.img2go.com/assets/dist/sample-files/img/resize_image.png" className=" rounded" alt="" />
                     
-                        <div>
-                            <button>Add to Cart</button>
-                        </div>
+                        <Button onClick={()=>{
+                            alert("here")
+                        }}>Add to Cart</Button>
+
+                        
                     </div>
 
                  

@@ -18,4 +18,3 @@ function ProductItem () {
 }
 
 export default ProductItem;
-// https://www.youtube.com/watch?v=gxJZhHPKMlU&list=PLprvbQiR3cN9MuBFjHJq-ShYnjjvLQ9dk&index=6
