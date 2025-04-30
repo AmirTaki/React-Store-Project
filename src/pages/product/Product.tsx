@@ -1,11 +1,24 @@
-import React from "react";
+import  {useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Container from "../../components/container/Container";
 import Button from "../../components/button/button";
+import { getProduct } from "../services/api";
+import { IProduct } from "../../types/server";
 
 function Product () {
     
-    const parmas = useParams();
+    const parmas = useParams<{ id : string }>();
+    // console.log(parmas)
+
+    const [product, setProduct] = useState<IProduct>('');
+
+
+    useEffect(()=>{
+        getProduct(parmas.id as string ).then((result) => {
+            // console.log(result);
+            setProduct(result);
+        })
+    },[])
 
     return (
         <div>
@@ -13,16 +26,16 @@ function Product () {
                 <div className="h-96 shadow mt-4 grid grid-cols-12 ">
                     <div className="  p-4 col-span-10 ">  
                         
-                        <h1 className="text-right">عنوان محصول</h1>
+                        <h1 className="text-right">{product?.title}</h1>
                         <div>
-                            <p className="text-right">قیمت : 25 دلار</p>
-                            <p className="text-right">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laudantium, doloribus aliquid alias, maiores animi tenetur laboriosam mollitia explicabo ducimus repellat, ut impedit nam libero est harum totam sequi quidem consequuntur.</p>
+                            <p className="text-right">{product.price}$</p>
+                            <p className="text-right"> {product.description}</p>
                         </div>
                     </div>
 
                                   
                     <div className=" p-4 col-span-2 bg-sky-200">
-                        <img src="https://www.img2go.com/assets/dist/sample-files/img/resize_image.png" className=" rounded" alt="" />
+                        <img src={product.image} className=" rounded" alt="" />
                     
                         <Button className="mt-2 w-full !py-3" variant = "primary">Add to Cart</Button>
                     

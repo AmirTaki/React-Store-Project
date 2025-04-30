@@ -16,4 +16,9 @@ export async function getProducts() {
 }
 
 
-// axios.get("")
+export async function getProduct(id : string | number) {
+
+    const {data} = await client(`/products/${id}`);
+
+    return data;
+}

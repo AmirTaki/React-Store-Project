@@ -3,11 +3,11 @@ import Container from "../../components/container/Container";
 import ProductItem from "../../components/productItem/ProductItem";
 import { useEffect, useState } from "react";
 import { getProducts } from "../services/api";
-import { Products } from "../../types/server";
+import { IProduct } from "../../types/server";
 
 function Store() {
 
-    const [products, setProducts] = useState<Products[]>([]);
+    const [products, setProducts] = useState<IProduct[]>([]);
 
     useEffect(() => {
         getProducts().then((result) =>{
@@ -26,7 +26,7 @@ function Store() {
                     {
                         products.map((item) => (
                             
-                            <Link  to = {`/product/${item.id}`}>
+                            <Link key= {item.id} to = {`/product/${item.id}`}>
                                 <ProductItem {...item} />
                             </Link>
                         ))
