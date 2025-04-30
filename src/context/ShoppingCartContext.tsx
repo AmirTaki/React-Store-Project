@@ -15,6 +15,7 @@ interface IShoppingCardContext {
     handleDecreaseProductQty : (id : number) => void;
     getProductQty : (id : number) => number;
     handleRemoveProduct : (id : number) => void;
+    CartQty : number;
 }
 
 export const ShoppingCardContext = createContext({} as IShoppingCardContext)
@@ -78,12 +79,13 @@ export function ShoppingCardProvider({children}:IShoppingCardProvider){
     const handleRemoveProduct = (id : number) => {
        return setCartItems(curreentitems => curreentitems.filter((item) => item.id !== id))
     }
-
+    //
+    const CartQty = cartItems.reduce((totalQty, item)=> totalQty + item.qty , 0)
     
 
 
     return (
-        <ShoppingCardContext.Provider value={{cartItems, handleIncreaseProductQty, handleDecreaseProductQty, getProductQty, handleRemoveProduct}}>
+        <ShoppingCardContext.Provider value={{cartItems, handleIncreaseProductQty, handleDecreaseProductQty, getProductQty, handleRemoveProduct, CartQty}}>
             {children}
         </ShoppingCardContext.Provider>
     )
