@@ -13,7 +13,7 @@ function Product () {
 
     const [product, setProduct] = useState<IProduct>('');
 
-    const {handleIncreaseProductQty, cartItems} = useShoppingCardContext();
+    const {handleIncreaseProductQty, handleDecreaseProductQty,cartItems} = useShoppingCardContext();
 
     console.log(cartItems)
 
@@ -42,8 +42,11 @@ function Product () {
                         <img src={product.image} className=" rounded" alt="" />
                     
                         <Button onClick={()=>handleIncreaseProductQty(parseInt(parmas.id as string))} className="mt-2 w-full !py-3" variant = "primary">Add to Cart</Button>
+                    
                         {/* <Button onClick={()=>handleIncreaseProductQty(parmas.id)} className="mt-2 w-full !py-3" variant = "primary">Add to Cart</Button> */}
                     
+                        <Button  onClick={()=>handleDecreaseProductQty(parseInt(parmas.id as string))} className="mt-2 w-full !py-3" variant = "primary">-</Button>
+
                         
                     </div>
 

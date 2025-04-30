@@ -16,7 +16,8 @@ interface IcardItem {
 
 interface IShoppingCardContext {
     cartItems : IcardItem[];
-    handleIncreaseProductQty : (id : number) => void
+    handleIncreaseProductQty : (id : number) => void;
+    handleDecreaseProductQty : (id : number) => void;
 }
 
 export const ShoppingCardContext = createContext({} as IShoppingCardContext)
@@ -33,6 +34,7 @@ export function ShoppingCardProvider({children}:IShoppingCardProvider){
     const handleIncreaseProductQty = (id : number) =>{
         setCartItems((currentItems) =>{
             let selectedItem = currentItems.find(item => item.id == id)
+            //  محصول وجود ندارد   
             if (selectedItem == null) {
                 return [...currentItems, {id : id, qty : 1}] 
             }
@@ -50,12 +52,29 @@ export function ShoppingCardProvider({children}:IShoppingCardProvider){
             }
             
         })
-    }
+    };
 
+
+const handleDecreaseProductQty = (id : number) => {
+    setCartItems((currentItems ) =>{
+        let selectedItem = currentItems.find(item => item.id == id)
+        // محصول وجود دارد
+        
+        if (selectedItem?.qty === 1) {
+            return currentItems.filter(item => item.id !== id) 
+        }
+
+        else {
+            return currentItems.map((item) =>{
+                return item.id == id ?{...item,qty : item.qty - 1} : item
+            })
+        }
+    })
+}
 
 
     return (
-        <ShoppingCardContext.Provider value={{cartItems, handleIncreaseProductQty}}>
+        <ShoppingCardContext.Provider value={{cartItems, handleIncreaseProductQty, handleDecreaseProductQty}}>
             {children}
         </ShoppingCardContext.Provider>
     )
