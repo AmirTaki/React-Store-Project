@@ -3,10 +3,11 @@ import Container from "../../components/container/Container";
 import ProductItem from "../../components/productItem/ProductItem";
 import { useEffect, useState } from "react";
 import { getProducts } from "../services/api";
+import { Products } from "../../types/server";
 
 function Store() {
 
-    const [products, setProducts] = useState ([]);
+    const [products, setProducts] = useState<Products[]>([]);
 
     useEffect(() => {
         getProducts().then((result) =>{
@@ -25,10 +26,11 @@ function Store() {
                     {
                         products.map((item) => (
                             
-                            <Link  to = {`/product/${1}`}>
-                                <ProductItem />
+                            <Link  to = {`/product/${item.id}`}>
+                                <ProductItem {...item} />
                             </Link>
-                        ))}                    
+                        ))
+                    }                    
                 </div>
             </Container>
            
