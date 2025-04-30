@@ -1,13 +1,10 @@
 import Container from "../../components/container/Container";
 import CartItem from "../../components/cartItem/CartItem"
 import Button from "../../components/button/button";
-import { useContext } from "react";
-import { ShoppingCardContext } from "../../context/ShoppingCartContext";
+import { useShoppingCardContext } from "../../context/ShoppingCartContext";
+
 function Cart () {
-
-    const {cartItems} = useContext(ShoppingCardContext)
-
-    cartItems.filter
+    const {cartItems} = useShoppingCardContext();
 
     return (
         <>
