@@ -24,12 +24,8 @@ function Product () {
                     <div className=" p-4 col-span-2 bg-sky-200">
                         <img src="https://www.img2go.com/assets/dist/sample-files/img/resize_image.png" className=" rounded" alt="" />
                     
-                        <Button style={{padding : "10px"}} variant = "danger">Add to Cart</Button>
-                        <Button variant = "primary">Add to Cart</Button>
-                        <Button variant = "secondary">Add to Cart</Button>
-                        <Button variant = "success">Add to Cart</Button>
-                        <Button variant = "warning">Add to Cart</Button>
-
+                        <Button className="mt-2 w-full !py-3" variant = "primary">Add to Cart</Button>
+                    
                         
                     </div>
 
