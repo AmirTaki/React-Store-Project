@@ -13,7 +13,7 @@ function Product () {
 
     const [product, setProduct] = useState<IProduct>('');
 
-    const {handleIncreaseProductQty, handleDecreaseProductQty, getProductQty, cartItems} = useShoppingCardContext();
+    const {handleIncreaseProductQty, handleDecreaseProductQty, getProductQty, handleRemoveProduct, cartItems} = useShoppingCardContext();
 
     console.log(cartItems)
 
@@ -49,10 +49,11 @@ function Product () {
                                     className="mt-2 w-full " 
                                     variant = "primary"
                                     >
-                                        Add to Cart
+                                       اضافه به سبد
                                 </Button> 
                             ) : 
                             (
+                            <>
                                 <div className="grid grid-cols-3">
                                     <Button 
                                         onClick={()=>
@@ -60,8 +61,9 @@ function Product () {
                                         } 
                                         className="mt-2 w-full !py-3" 
                                         variant = "primary"
-                                        >
-                                            Add to Cart
+                                    >
+                                        اضافه به سبد
+
                                     </Button>
 
                                     <span className="flex justify-center items-center"> {getProductQty(parseInt(parmas.id as string))}</span>   
@@ -73,10 +75,23 @@ function Product () {
                                         } 
                                         className="mt-2 w-full " 
                                         variant = "primary"
-                                        >
+                                    >
                                         -
                                     </Button> 
+
+                                    <Button
+                                        onClick={()=>
+                                            handleRemoveProduct(parseInt(parmas.id as string))
+                                        }
+                                        className="mt-2 w-full " 
+                                        variant = "danger"
+                                    >
+                                        حذف
+
+                                    </Button>
                                 </div>
+                            </>
+                              
                             )
                         }                                                   
                     </div>
