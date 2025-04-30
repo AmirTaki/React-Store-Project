@@ -28,32 +28,60 @@ function Product () {
         <div>
             <Container>   
                 <div className="h-96 shadow mt-4 grid grid-cols-12 ">
-                    <div className="  p-4 col-span-10 ">  
-                        
+                    <div className="  p-4 col-span-10 ">      
                         <h1 className="text-right">{product.title}</h1>
                         <div>
                             <p className="text-right">{product.price}$</p>
                             <p className="text-right"> {product.description}</p>
                         </div>
                     </div>
-
                                   
                     <div className=" p-4 col-span-2 bg-sky-200">
                         <img src={product.image} className=" rounded" alt="" />
-                    
-                        <Button onClick={()=>handleIncreaseProductQty(parseInt(parmas.id as string))} className="mt-2 w-full !py-3" variant = "primary">Add to Cart</Button>
-                    
-                        {getProductQty(parseInt(parmas.id as string))}
+                        
+                        {
+                            getProductQty(parseInt(parmas.id as string))  === 0 ?
+                            (
+                                <Button 
+                                    onClick={()=>
+                                        handleIncreaseProductQty(parseInt(parmas.id as string))
+                                    } 
+                                    className="mt-2 w-full " 
+                                    variant = "primary"
+                                    >
+                                        Add to Cart
+                                </Button> 
+                            ) : 
+                            (
+                                <div className="grid grid-cols-3">
+                                    <Button 
+                                        onClick={()=>
+                                            handleIncreaseProductQty(parseInt(parmas.id as string))
+                                        } 
+                                        className="mt-2 w-full !py-3" 
+                                        variant = "primary"
+                                        >
+                                            Add to Cart
+                                    </Button>
 
-                        <Button  onClick={()=>handleDecreaseProductQty(parseInt(parmas.id as string))} className="mt-2 w-full !py-3" variant = "primary">-</Button>                        
+                                    <span className="flex justify-center items-center"> {getProductQty(parseInt(parmas.id as string))}</span>   
+                                
+
+                                    <Button 
+                                        onClick={()=>
+                                            handleDecreaseProductQty(parseInt(parmas.id as string))
+                                        } 
+                                        className="mt-2 w-full " 
+                                        variant = "primary"
+                                        >
+                                        -
+                                    </Button> 
+                                </div>
+                            )
+                        }                                                   
                     </div>
-
-                 
-                </div>
-
-              
+                </div>   
             </Container>
-         
         </div>
 
         
