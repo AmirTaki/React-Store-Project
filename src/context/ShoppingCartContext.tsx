@@ -4,11 +4,6 @@ interface IShoppingCardProvider {
     children : React.ReactNode;
 }
 
-// cart = [
-//     {id : 1 , qty : 5},
-//     {id : 4 , qty : 8}
-// ]
-
 interface IcardItem {
     id : number,
     qty : number
@@ -18,6 +13,7 @@ interface IShoppingCardContext {
     cartItems : IcardItem[];
     handleIncreaseProductQty : (id : number) => void;
     handleDecreaseProductQty : (id : number) => void;
+    getProductQty : (id : number) => number
 }
 
 export const ShoppingCardContext = createContext({} as IShoppingCardContext)
@@ -55,26 +51,33 @@ export function ShoppingCardProvider({children}:IShoppingCardProvider){
     };
 
 
-const handleDecreaseProductQty = (id : number) => {
-    setCartItems((currentItems ) =>{
-        let selectedItem = currentItems.find(item => item.id == id)
-        // محصول وجود دارد
-        
-        if (selectedItem?.qty === 1) {
-            return currentItems.filter(item => item.id !== id) 
-        }
+    const handleDecreaseProductQty = (id : number) => {
+        setCartItems((currentItems ) =>{
+            let selectedItem = currentItems.find(item => item.id == id)
+            // محصول وجود دارد
+            
+            if (selectedItem?.qty === 1) {
+                return currentItems.filter(item => item.id !== id) 
+            }
 
-        else {
-            return currentItems.map((item) =>{
-                return item.id == id ?{...item,qty : item.qty - 1} : item
-            })
-        }
-    })
-}
+            else {
+                return currentItems.map((item) =>{
+                    return item.id == id ?{...item,qty : item.qty - 1} : item
+                })
+            }
+        })
+    };
+
+    const getProductQty = (id : number) => {
+        return cartItems.find(item => item .id == id)?.qty || 0 ;
+      
+    }
+
+    
 
 
     return (
-        <ShoppingCardContext.Provider value={{cartItems, handleIncreaseProductQty, handleDecreaseProductQty}}>
+        <ShoppingCardContext.Provider value={{cartItems, handleIncreaseProductQty, handleDecreaseProductQty, getProductQty}}>
             {children}
         </ShoppingCardContext.Provider>
     )
