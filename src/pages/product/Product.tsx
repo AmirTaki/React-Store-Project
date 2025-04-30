@@ -1,4 +1,4 @@
-import  { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Container from "../../components/container/Container";
 import Button from "../../components/button/button";
@@ -13,8 +13,9 @@ function Product () {
 
     const [product, setProduct] = useState<IProduct>('');
 
-    const {cartItems} = useShoppingCardContext();
+    const {handleIncreaseProductQty, cartItems} = useShoppingCardContext();
 
+    console.log(cartItems)
 
     useEffect(()=>{
         getProduct(parmas.id as string ).then((result) => {
@@ -40,7 +41,8 @@ function Product () {
                     <div className=" p-4 col-span-2 bg-sky-200">
                         <img src={product.image} className=" rounded" alt="" />
                     
-                        <Button className="mt-2 w-full !py-3" variant = "primary">Add to Cart</Button>
+                        <Button onClick={()=>handleIncreaseProductQty(parseInt(parmas.id as string))} className="mt-2 w-full !py-3" variant = "primary">Add to Cart</Button>
+                        {/* <Button onClick={()=>handleIncreaseProductQty(parmas.id)} className="mt-2 w-full !py-3" variant = "primary">Add to Cart</Button> */}
                     
                         
                     </div>
