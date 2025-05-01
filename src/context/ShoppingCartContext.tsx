@@ -1,4 +1,5 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext } from "react";
+import { useLocalStorage } from "../hooks/useLocalStorage";
 
 interface IShoppingCardProvider {
     children : React.ReactNode;
@@ -27,7 +28,9 @@ export const useShoppingCardContext = () =>{
 
 export function ShoppingCardProvider({children}:IShoppingCardProvider){
 
-    const [cartItems, setCartItems ] = useState <IcardItem[]> ([])
+    // const [cartItems, setCartItems ] = useState <IcardItem[]> ([])
+    
+     const [cartItems, setCartItems ] = useLocalStorage <IcardItem[]> ("cartItems",[])
 
     const handleIncreaseProductQty = (id : number) =>{
         setCartItems((currentItems) =>{
