@@ -2,9 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Container from "../container/Container";
 import { useShoppingCardContext } from "../../context/ShoppingCartContext";
+import Button from "../button/button";
 function Navbar() {
     
-    const {CartQty} = useShoppingCardContext();
+    const {CartQty, handleLogOut} = useShoppingCardContext();
     
     return(
         <div className="h-14 border-b shadow flex items-center ">
@@ -19,6 +20,9 @@ function Navbar() {
                         </li>
                     </ul>
 
+
+                  
+
                     <div className="relative">
                         
                         <Link   to = {"/cart"}>
@@ -29,6 +33,10 @@ function Navbar() {
 
                         <span className="absolute w-6 h-6 bg-red-600 flex justify-center items-center rounded-full text-white -top-3 -right-4 text-xs">{CartQty === 0 ? "" : CartQty } </span>
                     </div>
+
+                    <Button onClick={handleLogOut}>Logout</Button>
+
+                
                 </div>
             </Container>
         </div>

@@ -6,6 +6,8 @@ import Product from "./pages/product/Product"
 import Cart from "./pages/cart/Cart"
 import { ShoppingCardContext, ShoppingCardProvider } from "./context/ShoppingCartContext"
 import { useState } from "react"
+import PrivateRoute from "./components/privateRoute/PrivateRoute"
+import Login from "./pages/login/Login"
 
 
 function App() {
@@ -20,7 +22,13 @@ function App() {
           <Route path = "/" element = {<Home />} />
           <Route path = "/store" element = {<Store />} />
           <Route path = "/product/:id" element = {<Product />} />
-          <Route path = "/cart" element = {<Cart />} />
+          <Route path = "/login" element = {<Login />} />
+
+          <Route element= {<PrivateRoute />}>
+            <Route path = "/cart" element = {<Cart />} />
+          </Route>
+
+
         </Routes>
       </Layout>
     </ShoppingCardProvider>

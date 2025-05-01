@@ -1,4 +1,4 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, useState } from "react";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 
 interface IShoppingCardProvider {
@@ -17,6 +17,9 @@ interface IShoppingCardContext {
     getProductQty : (id : number) => number;
     handleRemoveProduct : (id : number) => void;
     CartQty : number;
+    isLogin : boolean;
+    handleLogin :()=>void;
+    handleLogOut :()=>void;
 }
 
 export const ShoppingCardContext = createContext({} as IShoppingCardContext)
@@ -30,7 +33,7 @@ export function ShoppingCardProvider({children}:IShoppingCardProvider){
 
     // const [cartItems, setCartItems ] = useState <IcardItem[]> ([])
     
-     const [cartItems, setCartItems ] = useLocalStorage <IcardItem[]> ("cartItems",[])
+     const [cartItems, setCartItems ] = useLocalStorage<IcardItem[]> ("cartItems",[])
 
     const handleIncreaseProductQty = (id : number) =>{
         setCartItems((currentItems) =>{
@@ -85,10 +88,30 @@ export function ShoppingCardProvider({children}:IShoppingCardProvider){
     //
     const CartQty = cartItems.reduce((totalQty, item)=> totalQty + item.qty , 0)
     
+    const [isLogin, setIslogin] = useState(false)
+
+    const handleLogin = () =>{
+        setIslogin(true)
+    }
+    const handleLogOut = () =>{
+        setIslogin(false)
+    }
 
 
     return (
-        <ShoppingCardContext.Provider value={{cartItems, handleIncreaseProductQty, handleDecreaseProductQty, getProductQty, handleRemoveProduct, CartQty}}>
+        <ShoppingCardContext.Provider 
+        value={{
+            cartItems,
+            handleIncreaseProductQty, 
+            handleDecreaseProductQty, 
+            getProductQty, 
+            handleRemoveProduct, 
+            CartQty ,
+            isLogin,
+            handleLogin,
+            handleLogOut,
+            }}
+        >
             {children}
         </ShoppingCardContext.Provider>
     )
