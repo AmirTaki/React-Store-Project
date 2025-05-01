@@ -1,5 +1,8 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { useLocalStorage } from "../hooks/useLocalStorage";
+import { login } from "../pages/services/api";
+import { useNavigate } from "react-router-dom";
+
 
 interface IShoppingCardProvider {
     children : React.ReactNode;
@@ -18,7 +21,7 @@ interface IShoppingCardContext {
     handleRemoveProduct : (id : number) => void;
     CartQty : number;
     isLogin : boolean;
-    handleLogin :()=>void;
+    handleLogin :(username:string , password :string)=>void;
     handleLogOut :()=>void;
 }
 
@@ -90,13 +93,33 @@ export function ShoppingCardProvider({children}:IShoppingCardProvider){
     
     const [isLogin, setIslogin] = useState(false)
 
-    const handleLogin = () =>{
-        setIslogin(true)
+    const navigate = useNavigate()
+
+    const handleLogin = (username : string , password : string) =>{
+
+        login(username, password).finally(()=>{
+            let token = "result.token"
+            localStorage.setItem("token", token)
+            
+            setIslogin(true)
+            navigate("/")
+        })
+
+        
+       
     }
     const handleLogOut = () =>{
         setIslogin(false)
+        navigate("/login")
+        localStorage.removeItem("token")
     }
 
+    useEffect (() =>{
+        let toekn = localStorage.getItem("token")
+        if (toekn){
+            setIslogin(true)
+        }
+    })
 
     return (
         <ShoppingCardContext.Provider 
