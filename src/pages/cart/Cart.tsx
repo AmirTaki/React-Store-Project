@@ -10,11 +10,13 @@ function Cart () {
         <>
             <Container>
                 <div className="">
-                    <CartItem />
-                    <CartItem />
-                    <CartItem />
-                    <CartItem />
-                    <CartItem />
+                    {
+                        cartItems.map(item =>(
+                            // <CartItem id = {item.id} qty = {item.qty}/>
+                            <CartItem {...item}/>
+                        ))
+                    }
+           
                 </div>
            
                 <div className="bg-gray-200 rounded p-6">
